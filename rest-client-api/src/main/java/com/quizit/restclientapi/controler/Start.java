@@ -17,7 +17,6 @@ import java.util.List;
 @Slf4j
 public class Start {
 
-    private int counter = 0;
 
     @Autowired
     private EurekaClient eurekaClient;
@@ -40,8 +39,13 @@ public class Start {
 
     @GetMapping("/instance_id")
     public String hello(){
-        counter=+1;
-        log.info("XXXXXXXX============== someone wants to know instance id coubter: {}", counter);
+        log.info("XXXXXXXX============== someone wants to know instance id ");
+        return "hello from "+ environment.getProperty("eureka.instance.instance-id");
+    }
+
+    @GetMapping("/{applicationName}/{instanceId}/hello")
+    public String helloMoto(){
+        log.info("XXXXXXXX============== someone wants to know ");
         return "hello from "+ environment.getProperty("eureka.instance.instance-id");
     }
 
