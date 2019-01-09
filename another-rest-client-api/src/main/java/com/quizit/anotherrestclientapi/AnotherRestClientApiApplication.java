@@ -39,9 +39,13 @@ public class AnotherRestClientApiApplication implements CommandLineRunner {
 		List<InstanceInfo> instanesRestClientApi = this.eurekaClient.getApplication("rest-client-api").getInstances();
 		instanesRestClientApi.stream().forEach(i -> log.info("instance: {}",i.getId()));
 		String clinetRestId = instanesRestClientApi.get(0).getId();
+		log.info("id instancji: {}", clinetRestId);
 
 		while (true) {
-			ResponseEntity<String> response = restTemplate.exchange("http://rest-client-api/instance_id", HttpMethod.GET, null, String.class);
+//			ResponseEntity<String> response = restTemplate.exchange("http://rest-client-api/instance_id", HttpMethod.GET, null, String.class);
+			String url = "http://rest-client-api/" + clinetRestId + "/hello";
+//			ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
+			ResponseEntity<String> response = restTemplate.exchange("http://rest-client-api/rest-client-api:32f8a2df3165064604fc721db94eb840/hello", HttpMethod.GET, null, String.class);
 			log.info("response: {}", response);
 			Thread.sleep(2000);
 		}
